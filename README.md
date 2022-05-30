@@ -1,3 +1,3 @@
 Code, data, and supplementary results for:
 
-Lee, M.D., & Stark. C.E.L. (2022). Modeling the Mnemonic Similarity Task.
+Lee, M.D., & Stark. C.E.L. (2022). Bayesian Modeling of the Mnemonic Similarity Task Using Multinomial Processing Trees.
