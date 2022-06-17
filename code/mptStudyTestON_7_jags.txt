@@ -1,0 +1,58 @@
+# MPT old/new study/test
+# v7 add two memory-based strategies
+model{
+  # Individual
+  for (i in 1:nParticipants){
+    z[i] ~ dcat(phi)
+    for (g in 1:2){
+      rho[i, g] ~ dnorm(muRho[g], 1/sigmaRho[g]^2)T(0, 1)
+      gamma[i, g] ~ dnorm(muGamma[g], 1/sigmaGamma[g]^2)T(0, 1)
+    }
+    psi[i] ~ dnorm(muPsi, 1/sigmaPsi^2)T(0, 1)
+    for (j in 1:nLures){
+      delta[i, j] ~ dnorm(muDelta[j], 1/sigmaDelta[j]^2)T(0, 1)
+    }
+  }
+  # Group
+  phi ~ ddirch(rep(1, 5))
+  muRhoTmp[1] ~ dunif(0, 1)
+  muRhoTmp[2] ~ dunif(0, 1)
+  muGammaTmp[1] ~ dunif(0, 1)
+  muGammaTmp[2] ~ dunif(0, 1)
+  muRho = sort(muRhoTmp)
+  muGamma = -sort(-muGammaTmp)
+  sigmaRho[1] ~ dunif(0, 1)
+  sigmaRho[2] ~ dunif(0, 1)
+  sigmaGamma[1] ~ dunif(0, 1)
+  sigmaGamma[2] ~ dunif(0, 1)
+  muPsi ~ dunif(0, 1)
+  sigmaPsi ~ dunif(0, 1)
+  for (j in 1:nLures){
+    muDelta[j] ~ dunif(0, 1)
+    sigmaDelta[j] ~ dunif(0, 1)
+  }
+  # Data
+  for (t in 1:nTotalTrials){
+    # theta is probability of old response 
+    # for 1 = old, 2 = new, 3 = lure stimuli
+    theta[t, 1, 1] = rho[p[t], 1] + (1-rho[p[t], 1])*gamma[p[t], 1]
+    theta[t, 2, 1] = (1-psi[p[t]])*gamma[p[t], 1]
+    theta[t, 3, 1] = rho[p[t], 1]*(1-delta[p[t], lureBin[t]]) + (1-rho[p[t], 1])*gamma[p[t], 1]
+    theta[t, 1, 2] = rho[p[t], 2] + (1-rho[p[t], 2])*gamma[p[t], 2]
+    theta[t, 2, 2] = (1-psi[p[t]])*gamma[p[t], 2]
+    theta[t, 3, 2] = rho[p[t], 2]*(1-delta[p[t], lureBin[t]]) + (1-rho[p[t], 2])*gamma[p[t], 2]
+    y[t] ~ dbern(equals(z[p[t]], 1)*theta[t, truth[t], 1]
+               + equals(z[p[t]], 2)*theta[t, truth[t], 2] 
+               + equals(z[p[t]], 3)*0.50
+               + equals(z[p[t]], 4)*0.99
+               + equals(z[p[t]], 5)*0.01)
+  }
+  # Posterior predictive
+  for (i in 1:nParticipants){
+    pp[i, 1] = rho[i, min(z[i], 2)] + (1-rho[i, min(z[i], 2)])*gamma[i, min(z[i], 2)]
+    for (j in 1:nLures){
+      pp[i, j+1] = rho[i, min(z[i], 2)]*(1-delta[i, j]) + (1-rho[i, min(z[i], 2)])*gamma[i, min(z[i], 2)]
+    }
+    pp[i, nLures+2] = (1-psi[i])*gamma[i, min(z[i], 2)]
+  }
+}
