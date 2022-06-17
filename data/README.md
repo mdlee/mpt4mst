@@ -1,4 +1,4 @@
-The `.mat` file is a MATLAB data file, with a single structured variable `d` and the following fields:
+The `.mat` file is a MATLAB data file, with a single structured variable `d` and the following fields, using a long format for the trial-by-trial behavior:
 
 ```
                   trialON: [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 … ]
@@ -39,3 +39,4 @@ The `.mat` file is a MATLAB data file, with a single structured variable `d` and
                   nGapsON: 209
                  nGapsOSN: 486
   ```
+
