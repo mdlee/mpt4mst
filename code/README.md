@@ -1,12 +1,20 @@
+## Trinity is required
+
 The `trinity` package is required: https://github.com/joachimvandekerckhove/trinity. It is used for the `callbayes` function which connects MATLAB to JAGS.
 
+## Running the models
 Each model is run by a MATLAB `.m` script, and has an associated JAGS `_jags.txt` file. At the top of the MATLAB scripts, there are constants `dataDir`, `storageDir`, and `figDir` and directories defining where the data are stored, where saved JAGS runs should be stored, and where figures should be placed. There are also booleans `preLoad` and `printTrue` controling whether stored results should be used, and whether figures should be printed.
+
+### Old-new task
 
 The models are:
 
 1. `mptStudyTestON_0`: Basic model of the old-new task. The graphical model is shown in Figure 3 of the paper.
 2. `mptStudyTestON_7`: Hierarchical latent-mixture model for two groups using MPT process, plus contamimant groups. The graphical model is shown in Figure 6 of the paper.
 3. `mptStudyTestON_8`: Hierarchical latent-mixture model for two groups using MPT process, plus contamimant groups, and logistic model relating lure bin to discriminability. The graphical model is provided in supplementary information in this repository.
+
+
+## Supporting files
 
 For producing the figures, some additional custom files need to be in the path:
 - `Raxes.m` for creating separated axes like R graphics often uses
