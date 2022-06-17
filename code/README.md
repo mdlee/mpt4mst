@@ -15,7 +15,7 @@ The models are:
 2. `mptStudyTestON_7`: Hierarchical latent-mixture model for two groups using MPT process, plus contamimant groups. The graphical model is shown in Figure 6 of the paper.
 3. `mptStudyTestON_8`: Hierarchical latent-mixture model for two groups using MPT process, plus contamimant groups, and logistic model relating lure bin to discriminability. Note that the inferences of `mptStudyTestON_7` are used to remove contaminants.
 
-#### Old-new task
+#### Old-similar-new task
 
 The models are:
 
