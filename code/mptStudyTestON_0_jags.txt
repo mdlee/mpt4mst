@@ -1,0 +1,27 @@
+# MPT old/new study/test
+model{
+  for (i in 1:nParticipants){
+    rho[i] ~ dunif(0, 1)
+    psi[i] ~ dunif(0, 1)
+    gamma[i] ~ dunif(0, 1)
+    for (j in 1:nLures){
+      delta[i, j] ~ dunif(0, 1)
+    }
+  }
+  for (t in 1:nTotalTrials){
+    # theta is probability of old response 
+    # for 1 = old, 2 = new, 3 = lure stimuli
+    theta[t, 1] = rho[p[t]] + (1-rho[p[t]])*gamma[p[t]]
+    theta[t, 2] = (1-psi[p[t]])*gamma[p[t]]
+    theta[t, 3] = rho[p[t]]*(1-delta[p[t], lureBin[t]]) + (1-rho[p[t]])*gamma[p[t]]
+    y[t] ~ dbern(theta[t, truth[t]])
+  }
+  # Posterior predictive
+  for (i in 1:nParticipants){
+    pp[i, 1] = rho[i] + (1-rho[i])*gamma[i]
+    for (j in 1:nLures){
+      pp[i, j+1] = rho[i]*(1-delta[i, j]) + (1-rho[i])*gamma[i]
+    }
+    pp[i, nLures+2] = (1-psi[i])*gamma[i]
+  }
+}
