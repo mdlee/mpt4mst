@@ -1,6 +1,6 @@
 The `trinity` package is required: https://github.com/joachimvandekerckhove/trinity. It is used for the `callbayes` function which connects MATLAB to JAGS.
 
-Each model is run by a MATLAB `.m` script, and has an associated JAGS `.txt` file. At the top of the MATLAB scripts, there are constants `dataDir`, `storageDir`, and `figDir` and directories defining where the data are stored, where saved JAGS runs should be stored, and where figures should be placed. There are also booleans `preLoad` and `printTrue` controling whether stored results should be used, and whether figures should be printed.
+Each model is run by a MATLAB `.m` script, and has an associated JAGS `_jags.txt` file. At the top of the MATLAB scripts, there are constants `dataDir`, `storageDir`, and `figDir` and directories defining where the data are stored, where saved JAGS runs should be stored, and where figures should be placed. There are also booleans `preLoad` and `printTrue` controling whether stored results should be used, and whether figures should be printed.
 
 The models are:
 
