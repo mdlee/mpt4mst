@@ -2,6 +2,12 @@ The `trinity` package is required: https://github.com/joachimvandekerckhove/trin
 
 Each model is run by a MATLAB `.m` script, and has an associated JAGS `.txt` file. At the top of the MATLAB scripts, there are constants `dataDir`, `storageDir`, and `figDir` and directories defining where the data are stored, where saved JAGS runs should be stored, and where figures should be placed. There are also booleans `preLoad` and `printTrue` controling whether stored results should be used, and whether figures should be printed.
 
+The models are:
+
+1. Basic model of the old-new task: `mptStudyTestON_0`. The graphical model is shown in Figure 3 of the paper.
+2. Hierarchical latent-mixture model for two groups using MPT process, plus contamimant groups: `mptStudyTestON_7`. The graphical model is shown in Figure 6 of the paper.
+3. Hierarchical latent-mixture model for two groups using MPT process, plus contamimant groups, and logistic model relating lure bin to discriminability: `mptStudyTestON_8`. The graphic model is provided in supplementary information in this repository.
+
 For producing the figures, some additional custom files need to be in the path:
 - `Raxes.m` for creating separated axes like R graphics often uses
 - `pantoneColors.mat` which provides a palette of colors (shown in `pantoneColors.png`)
