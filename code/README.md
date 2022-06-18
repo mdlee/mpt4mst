@@ -21,7 +21,8 @@ The models are:
 
 1. `mptStudyTestOSN_0`: Basic model of the old-similar-new task.
 2. `mptStudyTestOSN_7`: Hierarchical latent-mixture model for two groups using MPT process, plus contamimant groups.
-3. `mptStudyTestON_8`: Hierarchical latent-mixture model for two groups using MPT process, plus contamimant groups, and logistic model relating lure bin to discriminability. Note that the inferences of `mptStudyTestOSN_7` are used to remove contaminants.
+3. `mptStudyTestOSN_7b`: Hierarchical latent-mixture model for just one group using MPT process, plus contamimant groups.
+4. `mptStudyTestON_8`: Hierarchical latent-mixture model for two groups using MPT process, plus contamimant groups, and logistic model relating lure bin to discriminability. Note that the inferences of `mptStudyTestOSN_7` are used to remove contaminants.
 
 ### Supporting files
 
