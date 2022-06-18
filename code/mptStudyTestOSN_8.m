@@ -1,4 +1,5 @@
 %% MPT model of study/test with OSN
+% v8 add sigmoid delta and assume contaminants removed
 
 clear; close all;
 preLoad = true;
