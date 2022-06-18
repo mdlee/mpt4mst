@@ -115,7 +115,6 @@ rho = get_matrix_from_coda(chains, 'rho');
 
 [~, sortIdxFull] = sort(d.participantCorrectON, 'descend');
 
-
 % Compare OSN inferences with ON
 modelName = 'mptStudyTestON_8';
 fileName = sprintf('%s_%s_%s.mat', modelName, dataName, engine);
@@ -133,10 +132,18 @@ modelName = 'mptStudyTestOSN_8';
 fileName = sprintf('%s_%s_%s.mat', modelName, dataName, engine);
 load(sprintf('%s/%s', storageDir, fileName), 'chains', 'stats', 'diagnostics', 'info');
 
-tmp = corrcoef(rho, rhoON);
+tmp = corrcoef(rho(keep), rhoON(keep));
 fprintf('The correlation of rho between ON and OSN tasks is %1.2f\n', tmp(1, 2));
-tmp = corrcoef(tau, tauON);
+tmp = corrcoef(tau(keep), tauON(keep));
 fprintf('The correlation of tau between ON and OSN tasks is %1.2f\n', tmp(1, 2));
+
+% Compare \rho with REC and \tau with LDI
+tmp = corrcoef(rho(keep), d.REC(keep));
+fprintf('The correlation of rho with REC is %1.2f\n', tmp(1, 2));
+tmp = corrcoef(tau(keep), d.LDI(keep));
+fprintf('The correlation of tau with LDI is %1.2f\n', tmp(1, 2));
+
+return
 
 %% Figures
 

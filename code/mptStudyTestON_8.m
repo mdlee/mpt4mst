@@ -149,6 +149,14 @@ binsE = 0:binWidth:1;
 [~, sortIdx] = sort(d.participantCorrectON, 'descend');
 [nRows, nCols] = subplotArrange(length(keep));
 
+%% Analysis with empirical measures
+
+% Compare \rho with dpTF and dpTL
+tmp = corrcoef(rho(keep), d.dpTF(keep));
+fprintf('The correlation of rho with dprime for old vs new is %1.2f\n', tmp(1, 2));
+tmp = corrcoef(rho(keep), d.dpTL(keep));
+fprintf('The correlation of rho with dprime for old vs lure is %1.2f\n', tmp(1, 2));
+
 %% rho tau breakdown
 
 select = [11 12 5 2 ];
