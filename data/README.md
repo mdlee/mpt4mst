@@ -44,3 +44,16 @@ The `.mat` file is a MATLAB data file, with a single structured variable `d` and
                      dpTL: [0.0760 0.5596 -0.2691 0.3894 0.3488 -0.1911 -0.5596 … ]
   ```
 
+Core data. (+ indicates required input to JAGS model)
+- `participantON`: the participant number who completed this trial
+- `trialON`: the trial number
+- `lureON`+: 0 = not a lure item, 1 = is a lure item
+- `lureBinON`+: lure bin 1, 2, 3, 4, or 5.
+- `decisionON`+: observed response, nan = missing, 1 = old, 2 = new
+- `truthON`+: true nature of item, 1 = old, 2 = new. Note that the MATLAB code creates a variable `truth` that modifies `truthON` to be 3 for lure items.
+- `correctON`: 1 = response was correct, 0 = incorrect
+
+Extra stuff:
+- `studyON`: the position in the study sequence that the currently test item was originally presented
+- `gapON`: the number of trials between original study and current test for item
+- 
