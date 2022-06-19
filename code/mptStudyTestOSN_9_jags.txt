@@ -1,0 +1,43 @@
+# MPT old/similar/new study/test
+# v9 measurement model
+model{
+  # Individual
+  for (i in 1:nParticipants){
+    rho[i] ~ dunif(0, 1)
+    gammaO[i] ~ dunif(0, 1)
+    gammaS[i] ~ dunif(0, 1)
+    gammaN[i] = max(0.01, 1-gammaO[i]-gammaS[i])
+    psi[i] ~ dunif(0, 1)
+    beta[i] ~ dnorm(10, 1/10^2)T(0,)
+    tau[i] ~ dunif(0, 1)
+    for (j in 1:nLures){
+      delta[i, j] = 1/(1 + exp(-beta[i]*(j/(nLures+1) - tau[i])))
+    }
+  }
+  # Data
+  for (t in 1:nTotalTrials){
+    # theta is probability of old/new/similar response 
+    # for 1 = old, 2 = new, 3 = lure stimuli
+    theta[t, 1, 1:3] = c(rho[p[t]] + (1-rho[p[t]])*gammaO[p[t]],
+                       (1-rho[p[t]])*gammaN[p[t]],
+                       (1-rho[p[t]])*gammaS[p[t]])
+    theta[t, 2, 1:3] = c((1-psi[p[t]])*gammaO[p[t]],
+                       psi[p[t]] + (1-psi[p[t]])*gammaN[p[t]],
+                       (1-psi[p[t]])*gammaS[p[t]]) 
+    theta[t, 3, 1:3] = c(rho[p[t]]*(1-delta[p[t], lureBin[t]]) + (1-rho[p[t]])*gammaO[p[t]],
+                       (1-rho[p[t]])*gammaN[p[t]],
+                       rho[p[t]]*delta[p[t], lureBin[t]] + (1-rho[p[t]])*gammaS[p[t]])
+    y[t] ~ dcat(theta[t, truth[t], ])
+  }
+  # Posterior predictive
+  for (i in 1:nParticipants){
+    ppO[i, 1] = rho[i] + (1-rho[i])*gammaO[i]
+    ppS[i, 1] = (1-rho[i])*gammaS[i]
+    for (j in 1:nLures){
+      ppO[i, j+1] = rho[i]*(1-delta[i, j]) + (1-rho[i])*gammaO[i]
+      ppS[i, j+1] = rho[i]*delta[i, j] + (1-rho[i])*gammaS[i]
+    }
+    ppO[i, nLures+2] = (1-psi[i])*gammaO[i]
+    ppS[i, nLures+2] = (1-psi[i])*gammaS[i]
+  }
+}
