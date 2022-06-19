@@ -83,7 +83,7 @@ else
     fprintf('%s took %f seconds!\n', upper(engine), toc); % show timing
 
     fprintf('Saving samples for model %s on data %s\n', modelName, dataName);
-    save(sprintf('%s/%s', storageDir, fileName), 'chains', 'stats', 'diagnostics', 'info', 'yPred');
+    save(sprintf('%s/%s', storageDir, fileName), 'chains', 'stats', 'diagnostics', 'info');
 
     % convergence of each parameter
     disp('Convergence statistics:')

@@ -87,7 +87,7 @@ else
     chains = rmfield(chains, fn(tf));
 
     fprintf('Saving samples for model %s on data %s\n', modelName, dataName);
-    save(sprintf('%s/%s', storageDir, fileName), 'chains', 'stats', 'diagnostics', 'info', 'yPred');
+    save(sprintf('%s/%s', storageDir, fileName), 'chains', 'stats', 'diagnostics', 'info');
 
     % convergence of each parameter
     disp('Convergence statistics:')

@@ -1,5 +1,5 @@
 %% MPT model of study/test MST with old-new responses
-% basic model
+% measurement model
 
 clear; close all;
 preLoad = true;
@@ -21,7 +21,7 @@ load pantoneColors pantone;
 engine = 'jags';
 
 % graphical model script
-modelName = 'mptStudyTestON_0';
+modelName = 'mptStudyTestON_9';
 
 % parameters to monitor
 params = {...
@@ -48,7 +48,7 @@ data = struct(...
     'nTotalTrials'   , length(d.trialON)                 );
 
 % generator for initialization
-generator = @()struct('muRho', rand);
+generator = @()struct('rho', rand(d.nParticipants, 1));
 
 %% Sample using Trinity
 fileName = sprintf('%s_%s_%s.mat', modelName, dataName, engine);
@@ -204,35 +204,6 @@ if printFigures
     warning off;
     print(sprintf('%s/parameters_%s_%s.png', figureDir, dataName, modelName), '-dpng');
     print(sprintf('%s/parameters_%s_%s.eps', figureDir, dataName, modelName), '-depsc');
-    warning on;
-end
-
-% annotate
-axes(AX1);
-rectangle('position', [0.025 0.025 0.15 0.15], ...
-    'facecolor', [pantone.Greenery 0.5], ...
-    'linewidth', 15, ...
-    'edgecolor', [pantone.Custard 0.5]);
-
-axes(AX2);
-rectangle('position', [0.25 0.62 0.55 0.25], ...
-    'facecolor', [pantone.ClassicBlue 0.5], ...
-    'edgecolor', 'none');
-rectangle('position', [0.45 0.15 0.6 0.45], ...
-    'facecolor', [pantone.DuskBlue 0.5], ...
-    'edgecolor', 'none');
-rectangle('position', [0 0.2 0.2 0.3], ...
-    'facecolor', [pantone.Greenery 0.5], ...
-    'edgecolor', 'none')
-rectangle('position', [0 0.8 0.2 0.3], ...
-    'facecolor', [pantone.Custard 0.5], ...
-    'edgecolor', 'none')
-
-% print
-if printFigures
-    warning off;
-    print(sprintf('%s/parametersAnnotate_%s_%s.png', figureDir, dataName, modelName), '-dpng');
-    print(sprintf('%s/parametersAnnotate_%s_%s.eps', figureDir, dataName, modelName), '-depsc');
     warning on;
 end
 
