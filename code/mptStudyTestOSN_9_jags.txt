@@ -4,9 +4,10 @@ model{
   # Individual
   for (i in 1:nParticipants){
     rho[i] ~ dunif(0, 1)
-    gammaO[i] ~ dunif(0, 1)
-    gammaS[i] ~ dunif(0, 1)
-    gammaN[i] = max(0.01, 1-gammaO[i]-gammaS[i])
+    tmp[i, 1:3] ~ ddirch(c(1, 1, 1))
+    gammaO[i] = tmp[i, 1]
+    gammaS[i] = tmp[i, 2]
+    gammaN[i] = tmp[i, 3]
     psi[i] ~ dunif(0, 1)
     beta[i] ~ dnorm(10, 1/10^2)T(0,)
     tau[i] ~ dunif(0, 1)

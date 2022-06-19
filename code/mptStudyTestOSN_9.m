@@ -1,9 +1,9 @@
 %% MPT model of study/test with OSN
-% v8 measurement model
+% v9 measurement model
 
 clear; close all;
-preLoad = true;
-printFigures = true;
+preLoad = false;
+printFigures = false;
 dataDir = 'data/';
 figureDir = 'figures/';
 storageDir = '../storage/';
@@ -25,15 +25,14 @@ modelName = 'mptStudyTestOSN_9';
 
 % parameters to monitor
 params = {...
-    'muRho', 'muPsi', 'muDelta', 'muGammaO', 'muGammaS', ...
     'rho', 'psi', 'delta', 'gammaO', 'gammaS', 'beta', 'tau', ...
     'ppO', 'ppS', ...
     };
 
 % MCMC properties
 nChains    = 8;     % number of MCMC chains
-nBurnin    = 1e3;   % number of discarded burn-in samples
-nSamples   = 1e3;   % number of collected samples
+nBurnin    = 5e3;   % number of discarded burn-in samples
+nSamples   = 5e3;   % number of collected samples
 nThin      = 1;     % number of samples between those collected
 doParallel = 1;     % whether MATLAB parallel toolbox parallizes chains
 
@@ -78,14 +77,7 @@ else
         'verbosity'       , 0                                         , ...
         'saveoutput'      , true                                      , ...
         'parallel'        , doParallel                                );
-    fprintf('%s took %f seconds!\n', upper(engine), toc); % show timing
 
-    yPred = get_matrix_from_coda(chains, 'yPred');
-
-    prefix = 'yPred';
-    fn = fieldnames(chains);
-    tf = strncmp(fn, prefix, length(prefix));
-    chains = rmfield(chains, fn(tf));
 
     fprintf('Saving samples for model %s on data %s\n', modelName, dataName);
     save(sprintf('%s/%s', storageDir, fileName), 'chains', 'stats', 'diagnostics', 'info');
@@ -97,6 +89,9 @@ else
     % basic descriptive statistics
     disp('Descriptive statistics for all chains:')
     codatable(chains);
+
+        fprintf('%s took %f seconds!\n', upper(engine), toc); % show timing
+
 end
 
 %% Analysis
