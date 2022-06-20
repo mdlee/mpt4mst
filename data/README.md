@@ -44,16 +44,36 @@ The `.mat` file is a MATLAB data file, with a single structured variable `d` and
                      dpTL: [0.0760 0.5596 -0.2691 0.3894 0.3488 -0.1911 -0.5596 … ]
   ```
 
+#### Long format data
+
+The following fields are 4032-long vectors, with each element corresponds to a test trial for a participant.
+
 Core data. (+ indicates required input to JAGS model)
-- `participantON`: the participant number who completed this trial
-- `trialON`: the trial number
-- `lureON`+: 0 = not a lure item, 1 = is a lure item
-- `lureBinON`+: lure bin 1, 2, 3, 4, or 5.
-- `decisionON`+: observed response, nan = missing, 1 = old, 2 = new
-- `truthON`+: true nature of item, 1 = old, 2 = new. Note that the MATLAB code creates a variable `truth` that modifies `truthON` to be 3 for lure items.
-- `correctON`: 1 = response was correct, 0 = incorrect
+- `participantON`, `participantOSN` +: the participant number who completed this trial
+- `trialON`, `trialOSN`: the trial number
+- `lureON`, `lureOSN` +: 0 = not a lure item, 1 = is a lure item
+- `lureBinON`, `lureBinOSN` +: lure bin 1, 2, 3, 4, or 5.
+- `decisionON`, `decisionOSN` +: observed response, nan = missing, 1 = old, 2 = new
+- `truthON`, `truthOSN`+: true nature of item, 1 = old, 2 = new. Note that the MATLAB code creates a variable `truth` that modifies `truthON` to be 3 for lure items. It would be simpler just to establish this coding in the data initially.
+- `correctON`, `correctOSN`: 1 = response was correct, 0 = incorrect
 
 Extra stuff:
-- `studyON`: the position in the study sequence that the currently test item was originally presented
-- `gapON`: the number of trials between original study and current test for item
-- 
+- `studyON`, `studyOSN`: the position in the study sequence that the currently test item was originally presented
+- `uniqueGapsON`, `uniqueGapsOSN`: a list of the unique set of gaps observed in the data
+- `gapON`, `gapOSN`: the number of trials between original study and current test for item
+- `gapIdxON`, `gapIdxON`: which of the unique gaps the current gap corresponds to
+
+#### Participant data
+
+The following fields are 21-long vectors, providing information about each participant.
+- `nTrialsON`, `nTrialsOSN`: the number of trials completed by the participant
+- `dpTF`: the (frequentist point estimate, with edge correction) for the d' between old and new items in the old-new task
+- `dpTL`: the (frequentist point estimate, with edge correction) for the d' between old and lure items in the old-new task
+- `LDI`: the (frequentist point estimate) lure discrimination index for the old-similar-new task
+- `REC`: the (frequentist point estimate)recognition measure for the old-similar-new task
+
+#### Constants
+- `nParticipants`: the number of participants
+- `nLures`: the number of lure bins
+- `studyTrialsON`, `studyTrialsOSN`: the number of study trials
+- `nGapsON`, `nGapsOSN`: the number of unique study-test gaps
