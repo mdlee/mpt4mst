@@ -16,6 +16,34 @@ params = {...
     'rho', 'psi', 'delta', 'gamma', ...
     'pp'};
 ```
+- Markov Chain Monte-Carlo sampling properies
+```
+% MCMC properties
+nChains    = 8;     % number of MCMC chains
+nBurnin    = 1e3;   % number of discarded burn-in samples
+nSamples   = 1e3;   % number of collected samples
+nThin      = 1;     % number of samples between those collected
+doParallel = 1;     % whether MATLAB parallel toolbox parallizes chains
+```
+- Assigning values to observed variables
+```
+% assign MATLAB variables to the observed nodes
+truth = d.truthON;
+truth(find(d.lureON == 1)) = 3;
+data = struct(...
+    'y'              , 2 - d.decisionON                  , ...
+    'truth'          , truth                           , ...
+    'lureBin'        , d.lureBinON                       , ...
+    'nParticipants'  , d.nParticipants                 , ...
+    'p'              , d.participantON                   , ...
+    'nLures'         , d.nLures             , ...
+    'nTotalTrials'   , length(d.trialON)                 );
+```
+- Initializing parameters (if neeeded)
+```
+% generator for initialization
+generator = @()struct('rho', rand(d.nParticipants, 1));
+```
 
 #### Old-new task
 
