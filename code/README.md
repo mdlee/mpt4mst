@@ -7,6 +7,16 @@ Python or R users can use `PyJAGS` or `RJAGS` or similar to connect to the JAGS 
 ### Running the models
 Each model is run by a MATLAB `.m` script, and has an associated JAGS `_jags.txt` file. At the top of the MATLAB scripts, there are constants `dataDir`, `storageDir`, and `figDir` and directories defining where the data are stored, where saved JAGS runs should be stored, and where figures should be placed. There are also booleans `preLoad` and `printTrue` controling whether stored results should be used, and whether figures should be printed.
 
+There are four key parts to connecting MATLAB (and R and Python have equivalents) with JAGS
+
+- which parameters to monitor the samples for
+```
+% parameters to monitor
+params = {...
+    'rho', 'psi', 'delta', 'gamma', ...
+    'pp'};
+```
+
 #### Old-new task
 
 The models are:
