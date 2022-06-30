@@ -53,7 +53,7 @@ Core data. (+ indicates required input to JAGS model)
 - `trialON`, `trialOSN`: the trial number
 - `lureON`, `lureOSN` +: 0 = not a lure item, 1 = is a lure item
 - `lureBinON`, `lureBinOSN` +: lure bin 1, 2, 3, 4, or 5.
-- `decisionON`, `decisionOSN` +: observed response, nan = missing, 1 = old, 2 = new
+- `decisionON`, `decisionOSN` +: observed response, nan = missing, 1 = old, 2 = new, 3 = similar (for `decisionOSN` only)
 - `truthON`, `truthOSN`+: true nature of item, 1 = old, 2 = new. Note that the MATLAB code creates a variable `truth` that modifies `truthON` to be 3 for lure items. It would be simpler just to establish this coding in the data initially.
 - `correctON`, `correctOSN`: 1 = response was correct, 0 = incorrect
 
