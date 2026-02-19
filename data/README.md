@@ -77,3 +77,7 @@ The following fields are 21-long vectors, providing information about each parti
 - `nLures`: the number of lure bins
 - `studyTrialsON`, `studyTrialsOSN`: the number of study trials
 - `nGapsON`, `nGapsOSN`: the number of unique study-test gaps
+- 
+#### Additional file
+
+There is now also a file with `RT` appended that includes response time data in ms. There are some missing values.
